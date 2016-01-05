@@ -1,0 +1,28 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/menu_group_1">
+        <item
+            android:id="@+id/menu_gouwuche"
+            android:icon="@drawable/ic_global_menu_feed"
+            android:title="购物车" />
+        <item
+            android:id="@+id/menu_youhuima"
+            android:icon="@drawable/ic_global_menu_direct"
+            android:title="优惠码" />
+        <item
+            android:id="@+id/menu_order"
+            android:icon="@drawable/ic_global_menu_news"
+            android:title="订单" />
+        <item
+            android:id="@+id/menu_shangchen"
+            android:icon="@drawable/ic_global_menu_popular"
+            android:title="积分商城" />
+    </group>
+    <group android:id="@+id/menu_group_2">
+        <item
+            android:id="@+id/menu_settings"
+            android:title="设置" />
+        <item
+            android:id="@+id/menu_about"
+            android:title="关于" />
+    </group>
+</menu>
