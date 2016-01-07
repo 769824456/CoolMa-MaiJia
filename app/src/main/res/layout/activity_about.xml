@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="io.github.froger.instamaterial.ui.activity.AboutActivity">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/view_feed_toolbar" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="170dp"
+        android:layout_height="180dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:text="酷码|杭电版"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape_bg_register"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            style="@style/mSettingRelativeLayout"
+            android:clickable="false"
+            android:focusable="false">
+
+            <ImageView
+                android:id="@+id/iv_setting_msg"
+                style="@style/mSettingImageView"
+                android:src="@drawable/ic_setting_msg" />
+
+            <TextView
+                style="@style/mSettingTextView"
+                android:layout_toRightOf="@+id/iv_setting_msg"
+                android:text="推送通知" />
+
+            <Switch
+                android:id="@+id/s_setting_msg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:checked="true" />
+
+        </RelativeLayout>
+
+        <View style="@style/mViewPartingLine" />
+
+        <RelativeLayout
+            android:id="@+id/rl_setting_update"
+            style="@style/mSettingRelativeLayout">
+
+            <ImageView
+                android:id="@+id/iv_setting_update"
+                style="@style/mSettingImageView"
+                android:src="@drawable/ic_setting_update" />
+
+            <TextView
+                style="@style/mSettingTextView"
+                android:layout_toRightOf="@+id/iv_setting_update"
+                android:text="检查更新" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="6dp"
+                android:text="V 1.0.1"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <View style="@style/mViewPartingLine" />
+
+        <RelativeLayout
+            android:id="@+id/rl_setting_help"
+            style="@style/mSettingRelativeLayout"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/iv_setting_help"
+                style="@style/mSettingImageView"
+                android:src="@drawable/ic_setting_help" />
+
+            <TextView
+                style="@style/mSettingTextView"
+                android:layout_toRightOf="@+id/iv_setting_help"
+                android:text="使用帮助" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rl_setting_feedback"
+            style="@style/mSettingRelativeLayout">
+
+            <ImageView
+                android:id="@+id/iv_setting_feedback"
+                style="@style/mSettingImageView"
+                android:src="@drawable/ic_setting_feedback" />
+
+            <TextView
+                style="@style/mSettingTextView"
+                android:layout_toRightOf="@+id/iv_setting_feedback"
+                android:text="建议反馈" />
+        </RelativeLayout>
+
+        <View style="@style/mViewPartingLine" />
+
+        <RelativeLayout
+            android:id="@+id/rl_setting_share"
+            style="@style/mSettingRelativeLayout">
+
+            <ImageView
+                android:id="@+id/iv_setting_share"
+                style="@style/mSettingImageView"
+                android:src="@drawable/ic_setting_share" />
+
+            <TextView
+                style="@style/mSettingTextView"
+                android:layout_toRightOf="@+id/iv_setting_share"
+                android:text="分享应用" />
+        </RelativeLayout>
+
+        <View style="@style/mViewPartingLine" />
+    </LinearLayout>
+
+    <!--02结束-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="杭州电子科技大学©版权所有"
+        android:textSize="14sp" />
+</LinearLayout>

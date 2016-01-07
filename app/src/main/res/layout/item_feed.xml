@@ -13,11 +13,27 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/ivUserProfile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_feed_top" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/ivUserProfile"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_aliww" />
+
+            <TextView
+                android:id="@+id/tvUserName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="zhangsan"
+                android:textSize="16sp" />
+        </LinearLayout>
+
 
         <io.github.froger.instamaterial.ui.view.SquaredFrameLayout
             android:id="@+id/vImageRoot"
@@ -47,7 +63,7 @@
 
         </io.github.froger.instamaterial.ui.view.SquaredFrameLayout>
 
-        <ImageView
+        <TextView
             android:id="@+id/ivFeedBottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -102,7 +118,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="123 likes"
+                        android:text="123"
                         android:textColor="@color/text_like_counter" />
 
                     <TextView

@@ -107,21 +107,25 @@ public class BaseDrawerActivity extends BaseActivity implements NavigationView.O
         Intent intent = null;
         switch (id) {
             case R.id.menu_gouwuche:
+                intent = new Intent(BaseDrawerActivity.this, GouWuCheActivity.class);
                 break;
 
             case R.id.menu_order:
+                intent = new Intent(BaseDrawerActivity.this, DingDanActivity.class);
                 break;
 
             case R.id.menu_youhuima:
+                intent = new Intent(BaseDrawerActivity.this, YouHuiActivity.class);
                 break;
-
             case R.id.menu_shangchen:
                 gotoShangChen();
                 break;
             case R.id.menu_settings:
-                intent = new Intent(BaseDrawerActivity.this, SettingsActivity.class);
+                intent = new Intent(BaseDrawerActivity.this, SettingActivity.class);
                 break;
             case R.id.menu_about:
+                intent = new Intent(BaseDrawerActivity.this, AboutActivity.class);
+
                 break;
         }
         if (intent != null) {

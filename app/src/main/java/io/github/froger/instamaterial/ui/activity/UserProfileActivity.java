@@ -3,20 +3,33 @@ package io.github.froger.instamaterial.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import io.github.froger.instamaterial.R;
+import io.github.froger.instamaterial.ui.activity.fragment.BaseFragment;
+import io.github.froger.instamaterial.ui.activity.fragment.ChongZhiFragment;
+import io.github.froger.instamaterial.ui.activity.fragment.ModifyPwdFragment;
+import io.github.froger.instamaterial.ui.activity.fragment.UserInfoFragment;
 import io.github.froger.instamaterial.ui.adapter.UserProfileAdapter;
 import io.github.froger.instamaterial.ui.utils.CircleTransformation;
 import io.github.froger.instamaterial.ui.view.RevealBackgroundView;
@@ -32,8 +45,8 @@ public class UserProfileActivity extends BaseDrawerActivity implements RevealBac
 
     @Bind(R.id.vRevealBackground)
     RevealBackgroundView vRevealBackground;
-    @Bind(R.id.rvUserProfile)
-    RecyclerView rvUserProfile;
+//    @Bind(R.id.rvUserProfile)
+//    RecyclerView rvUserProfile;
 
     @Bind(R.id.tlUserProfileTabs)
     TabLayout tlUserProfileTabs;
@@ -48,10 +61,19 @@ public class UserProfileActivity extends BaseDrawerActivity implements RevealBac
     View vUserStats;
     @Bind(R.id.vUserProfileRoot)
     View vUserProfileRoot;
+    @Bind(R.id.fl_Content)
+    ViewPager flContent;
+    @Bind(R.id.collapsing_toolbar)
+    CollapsingToolbarLayout collapsingToolbar;
+    @Bind(R.id.appBarLayout)
+    AppBarLayout appBarLayout;
+    @Bind(R.id.content)
+    CoordinatorLayout content;
 
     private int avatarSize;
     private String profilePhoto;
     private UserProfileAdapter userPhotosAdapter;
+    private ArrayList<BaseFragment> mFragments;
 
     public static void startUserProfileFromLocation(int[] startingLocation, Activity startingActivity) {
         Intent intent = new Intent(startingActivity, UserProfileActivity.class);
@@ -63,6 +85,7 @@ public class UserProfileActivity extends BaseDrawerActivity implements RevealBac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
+        ButterKnife.bind(this);
 
         this.avatarSize = getResources().getDimensionPixelSize(R.dimen.user_profile_avatar_size);
         this.profilePhoto = getString(R.string.user_profile_photo);
@@ -76,7 +99,8 @@ public class UserProfileActivity extends BaseDrawerActivity implements RevealBac
                 .into(ivUserProfilePhoto);
 
         setupTabs();
-        setupUserProfileGrid();
+        setupViewPager();
+//        setupUserProfileGrid();
         setupRevealBackground(savedInstanceState);
     }
 
@@ -84,19 +108,44 @@ public class UserProfileActivity extends BaseDrawerActivity implements RevealBac
         tlUserProfileTabs.addTab(tlUserProfileTabs.newTab().setIcon(R.drawable.ic_grid_on_white));
         tlUserProfileTabs.addTab(tlUserProfileTabs.newTab().setIcon(R.drawable.ic_list_white));
         tlUserProfileTabs.addTab(tlUserProfileTabs.newTab().setIcon(R.drawable.ic_place_white));
-        tlUserProfileTabs.addTab(tlUserProfileTabs.newTab().setIcon(R.drawable.ic_label_white));
+//        tlUserProfileTabs.addTab(tlUserProfileTabs.newTab().setIcon(R.drawable.ic_label_white));
     }
 
-    private void setupUserProfileGrid() {
-        final StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
-        rvUserProfile.setLayoutManager(layoutManager);
-        rvUserProfile.setOnScrollListener(new RecyclerView.OnScrollListener() {
+    private void setupViewPager() {
+        mFragments = new ArrayList<BaseFragment>();
+        mFragments.add(new UserInfoFragment());
+        mFragments.add(new ModifyPwdFragment());
+        mFragments.add(new ChongZhiFragment());
+        flContent.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                userPhotosAdapter.setLockedAnimations(true);
+            public Fragment getItem(int position) {
+                return mFragments.get(position);
+            }
+
+            @Override
+            public int getCount() {
+                return mFragments.size();
+            }
+
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return mFragments.get(position).getTitle();
             }
         });
+        tlUserProfileTabs.setupWithViewPager(flContent);
     }
+
+
+//    private void setupUserProfileGrid() {
+//        final StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
+//        rvUserProfile.setLayoutManager(layoutManager);
+//        rvUserProfile.setOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+//                userPhotosAdapter.setLockedAnimations(true);
+//            }
+//        });
+//    }
 
     private void setupRevealBackground(Bundle savedInstanceState) {
         vRevealBackground.setOnStateChangeListener(this);
@@ -119,16 +168,16 @@ public class UserProfileActivity extends BaseDrawerActivity implements RevealBac
     @Override
     public void onStateChange(int state) {
         if (RevealBackgroundView.STATE_FINISHED == state) {
-            rvUserProfile.setVisibility(View.VISIBLE);
+//            rvUserProfile.setVisibility(View.VISIBLE);
             tlUserProfileTabs.setVisibility(View.VISIBLE);
             vUserProfileRoot.setVisibility(View.VISIBLE);
             userPhotosAdapter = new UserProfileAdapter(this);
-            rvUserProfile.setAdapter(userPhotosAdapter);
+//            rvUserProfile.setAdapter(userPhotosAdapter);
             animateUserProfileOptions();
             animateUserProfileHeader();
         } else {
             tlUserProfileTabs.setVisibility(View.INVISIBLE);
-            rvUserProfile.setVisibility(View.INVISIBLE);
+//            rvUserProfile.setVisibility(View.INVISIBLE);
             vUserProfileRoot.setVisibility(View.INVISIBLE);
         }
     }
@@ -139,14 +188,14 @@ public class UserProfileActivity extends BaseDrawerActivity implements RevealBac
     }
 
     private void animateUserProfileHeader() {
-           vUserProfileRoot.setTranslationY(-vUserProfileRoot.getHeight());
-           ivUserProfilePhoto.setTranslationY(-ivUserProfilePhoto.getHeight());
-           vUserDetails.setTranslationY(-vUserDetails.getHeight());
-           vUserStats.setAlpha(0);
+        vUserProfileRoot.setTranslationY(-vUserProfileRoot.getHeight());
+        ivUserProfilePhoto.setTranslationY(-ivUserProfilePhoto.getHeight());
+        vUserDetails.setTranslationY(-vUserDetails.getHeight());
+        vUserStats.setAlpha(0);
 
-           vUserProfileRoot.animate().translationY(0).setDuration(300).setInterpolator(INTERPOLATOR);
-           ivUserProfilePhoto.animate().translationY(0).setDuration(300).setStartDelay(100).setInterpolator(INTERPOLATOR);
-           vUserDetails.animate().translationY(0).setDuration(300).setStartDelay(200).setInterpolator(INTERPOLATOR);
-           vUserStats.animate().alpha(1).setDuration(200).setStartDelay(400).setInterpolator(INTERPOLATOR).start();
+        vUserProfileRoot.animate().translationY(0).setDuration(300).setInterpolator(INTERPOLATOR);
+        ivUserProfilePhoto.animate().translationY(0).setDuration(300).setStartDelay(100).setInterpolator(INTERPOLATOR);
+        vUserDetails.animate().translationY(0).setDuration(300).setStartDelay(200).setInterpolator(INTERPOLATOR);
+        vUserStats.animate().alpha(1).setDuration(200).setStartDelay(400).setInterpolator(INTERPOLATOR).start();
     }
 }

@@ -50,6 +50,7 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
     private FeedAdapter feedAdapter;
 
     private boolean pendingIntroAnimation;
+    private String result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -201,11 +202,23 @@ public class MainActivity extends BaseDrawerActivity implements FeedAdapter.OnFe
         int[] startingLocation = new int[2];
         fabCreate.getLocationOnScreen(startingLocation);
         startingLocation[0] += fabCreate.getWidth() / 2;
-        TakePhotoActivity.startCameraFromLocation(startingLocation, this);
-        overridePendingTransition(0, 0);
+//        TakePhotoActivity.startCameraFromLocation(startingLocation, this);
+        Intent intent = new Intent(this, SimpleScannerActivity.class);
+        startActivityForResult(intent, 0);
+//        overridePendingTransition(0, 0);
     }
 
     public void showLikedSnackbar() {
-        Snackbar.make(clContent, "赞!", Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(clContent, "赞+1", Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == MainActivity.RESULT_OK) {
+            result = data.getExtras().getString("result");
+            Intent intent = new Intent(this, GoodsActivityDetail.class);
+            startActivity(intent);
+        }
     }
 }

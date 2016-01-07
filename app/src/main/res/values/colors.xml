@@ -22,6 +22,8 @@
     <color name="bg_comments">#ffffff</color>
 
     <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimary2">#9d55b8</color>
     <color name="colorPrimaryDark">#303F9F</color>
+    <color name="grey">#f0f0f0</color>
     <color name="colorAccent">#303F9F</color>
 </resources>

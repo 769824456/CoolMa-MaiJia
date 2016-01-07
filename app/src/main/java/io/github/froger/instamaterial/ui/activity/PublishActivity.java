@@ -21,7 +21,6 @@ import butterknife.OnCheckedChanged;
 import hugo.weaving.DebugLog;
 import io.github.froger.instamaterial.R;
 import io.github.froger.instamaterial.Utils;
-import timber.log.Timber;
 
 /**
  * Created by Miroslaw Stanek on 21.02.15.

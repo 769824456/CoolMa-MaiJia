@@ -10,6 +10,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextSwitcher;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -96,12 +97,12 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
             }
         });
-        cellFeedViewHolder.ivUserProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onFeedItemClickListener.onProfileClick(view);
-            }
-        });
+//        cellFeedViewHolder.ivUserProfile.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onFeedItemClickListener.onProfileClick(view);
+//            }
+//        });
     }
 
     @Override
@@ -169,7 +170,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         @Bind(R.id.ivFeedCenter)
         ImageView ivFeedCenter;
         @Bind(R.id.ivFeedBottom)
-        ImageView ivFeedBottom;
+        TextView ivFeedBottom;
         @Bind(R.id.btnComments)
         ImageButton btnComments;
         @Bind(R.id.btnLike)
@@ -186,6 +187,8 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         ImageView ivUserProfile;
         @Bind(R.id.vImageRoot)
         FrameLayout vImageRoot;
+        @Bind(R.id.tvUserName)
+        TextView tvUserName;
 
         FeedItem feedItem;
 
@@ -194,11 +197,20 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ButterKnife.bind(this, view);
         }
 
+        int[] img = {R.drawable.ic_1, R.drawable.ic_2, R.drawable.ic_3};
+        String[] desc = {"国行【送壳+钢化膜】Apple/苹果 iPhone 6 4.7英寸 全网通手机\n" +
+                "送壳+钢化膜 分期0首付 移动联通电信 4G", "12期免息【送壳+钢化膜】Apple/苹果 iPhone 6 苹果6全网通手机\n" +
+                "学生12期 普通6期 免息分期 全网通 现货", "Apple/苹果 iPhone 6 4.7英寸 公开版 全网通4G手机\n" +
+                "国行全网通 原封行货 支持分期购 高清屏显", "原封Apple/苹果 iPhone 6 4.7寸手机三网4G港版美版日版有锁分期\n" +
+                "★★【支持分期购 最高可分9期 0首付 0压力】 ★★【手机下单少1% 顺丰包邮】 ★★【免费越狱，送钢化膜，需告诉客服】 ★★【8天包退换，三年店铺超长售后】"};
+        String[] name = {"7号数码店", "魔力通讯", "中国移动手机官方旗舰店 ", "能良数码官方旗舰店 "};
+
         public void bindView(FeedItem feedItem) {
             this.feedItem = feedItem;
             int adapterPosition = getAdapterPosition();
-            ivFeedCenter.setImageResource(adapterPosition % 2 == 0 ? R.drawable.img_feed_center_1 : R.drawable.img_feed_center_2);
-            ivFeedBottom.setImageResource(adapterPosition % 2 == 0 ? R.drawable.img_feed_bottom_1 : R.drawable.img_feed_bottom_2);
+            ivFeedCenter.setImageResource(img[adapterPosition % 2]);
+            ivFeedBottom.setText(desc[adapterPosition % 4]);
+            tvUserName.setText(name[adapterPosition % 4]);
             btnLike.setImageResource(feedItem.isLiked ? R.drawable.ic_heart_red : R.drawable.ic_heart_outline_grey);
             tsLikesCounter.setCurrentText(vImageRoot.getResources().getQuantityString(
                     R.plurals.likes_count, feedItem.likesCount, feedItem.likesCount
